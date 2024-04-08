@@ -1,6 +1,6 @@
 package com.codingtest.data.domain.question.entity;
 
-import com.codingtest.data.codegen.types.Question;
+import com.codingtest.data.codegen.types.QuestionDto;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "tb_question")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class QuestionTable {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,8 +41,8 @@ public class QuestionTable {
 
     private Long totalSuccess;
 
-    public Question toResponseDto() {
-        return new Question.Builder()
+    public QuestionDto toResponseDto() {
+        return new QuestionDto.Builder()
                 .id(id)
                 .title(title)
                 .content(content)

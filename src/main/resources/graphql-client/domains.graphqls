@@ -4,7 +4,7 @@ type Show {
     releaseYear: Int
 }
 
-type Question {
+type QuestionDto {
     id: Long
     title: String
     content: String

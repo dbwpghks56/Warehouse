@@ -1,5 +1,5 @@
 package com.codingtest.data.domain.question.service;
 
 public interface QuestionService {
-    String createSolvedacQuestions();
+    String createSolvedacQuestions(String query, Integer page);
 }

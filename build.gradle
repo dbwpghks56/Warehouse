@@ -36,6 +36,7 @@ dependencies {
 	implementation 'com.graphql-java:graphql-java-extended-scalars:21.0'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
 	implementation 'org.springframework.cloud:spring-cloud-commons:4.1.1'
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.flywaydb:flyway-core'
 	compileOnly 'org.projectlombok:lombok'
@@ -45,6 +46,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework:spring-webflux'
+	testImplementation 'org.springframework.batch:spring-batch-test'
 	testImplementation 'org.springframework.graphql:spring-graphql-test'
 }
 
