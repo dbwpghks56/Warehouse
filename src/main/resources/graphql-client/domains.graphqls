@@ -1,0 +1,20 @@
+type Show {
+    id: Int
+    title: String
+    releaseYear: Int
+}
+
+type Question {
+    id: Long
+    title: String
+    content: String
+    tag: String
+    timeLimit: Float
+    memoryLimit: Float
+    level: Int
+    averageTries: Float
+    totalTries: Long
+    totalPerson: Long
+    successRate: Float
+    totalSuccess: Long
+}
