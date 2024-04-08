@@ -11,7 +11,7 @@ public class QuestionDataFetcher {
     private final QuestionService questionService;
 
     @DgsMutation
-    public String createSolvedacQuestion() {
-        return questionService.createSolvedacQuestion();
+    public String createSolvedacQuestions() {
+        return questionService.createSolvedacQuestions();
     }
 }
