@@ -1,1 +1,7 @@
 scalar Long
+
+enum ProgrammersOrderEnum {
+    acceptance_asc,
+    acceptance_desc,
+    recent
+}

@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS tb_question (
     id BIGSERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content TEXT,
-    tag VARCHAR(255) NOT NULL,
+    tag VARCHAR(255),
     time_limit DOUBLE PRECISION,
     memory_limit DOUBLE PRECISION,
     level INTEGER,

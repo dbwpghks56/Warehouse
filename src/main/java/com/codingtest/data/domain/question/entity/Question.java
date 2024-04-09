@@ -22,7 +22,6 @@ public class Question {
 
     private String content;
 
-    @Column(nullable = false)
     private String tag;
 
     private Double timeLimit;
