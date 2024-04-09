@@ -13,8 +13,8 @@ public interface ProgrammersClient {
     @GetMapping("school/challenges/")
     Programmers.QuestionResponse getProgrammersQuestions(
             @RequestParam int perPage,
-            @RequestParam List<Integer> levels,
-            @RequestParam List<String> languages,
+            @RequestParam(name = "levels[]") List<Integer> levels,
+            @RequestParam(name = "languages[]") List<String> languages,
             @RequestParam ProgrammersOrderEnum order,
             @RequestParam String search,
             @RequestParam int page
