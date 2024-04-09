@@ -2,4 +2,5 @@ type Mutation {
     createSolvedacQuestions(query: String, page: Int): String
     createProgrammersQuestions(perPage: Int, levels: [Int], languages: [String], order: ProgrammersOrderEnum, search: String,
         page: Int): String
+    createLeetCodeQuestions(limit: Int, tags: [String]): String
 }

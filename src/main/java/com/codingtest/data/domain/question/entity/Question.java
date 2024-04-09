@@ -24,6 +24,8 @@ public class Question {
 
     private String tag;
 
+    private String source;
+
     private Double timeLimit;
 
     private Double memoryLimit;
@@ -46,6 +48,7 @@ public class Question {
                 .title(title)
                 .content(content)
                 .tag(tag)
+                .source(source)
                 .timeLimit(timeLimit)
                 .memoryLimit(memoryLimit)
                 .level(level)

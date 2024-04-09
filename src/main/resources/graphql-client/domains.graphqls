@@ -9,6 +9,7 @@ type QuestionDto {
     title: String
     content: String
     tag: String
+    source: String
     timeLimit: Float
     memoryLimit: Float
     level: Int

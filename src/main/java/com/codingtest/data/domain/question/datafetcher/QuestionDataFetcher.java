@@ -28,4 +28,9 @@ public class QuestionDataFetcher {
                                              @InputArgument Integer page) {
         return questionService.CreateProgrammersQuestions(perPage, levels, languages, order, search, page);
     }
+
+    @DgsMutation
+    public String createLeetCodeQuestions(@InputArgument Integer limit, @InputArgument List<String> tags) {
+        return questionService.createLeetCodeQuestions(limit, tags);
+    }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface QuestionService {
     String createSolvedacQuestions(String query, Integer page);
     String CreateProgrammersQuestions(Integer perPage, List<Integer> levels, List<String> languages, ProgrammersOrderEnum order, String search, Integer page);
+    String createLeetCodeQuestions(Integer limit, List<String> tags);
 }
