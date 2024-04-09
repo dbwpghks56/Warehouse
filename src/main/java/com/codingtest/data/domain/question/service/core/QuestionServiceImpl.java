@@ -1,6 +1,8 @@
 package com.codingtest.data.domain.question.service.core;
 
 import com.codingtest.data.codegen.types.ProgrammersOrderEnum;
+import com.codingtest.data.codegen.types.QuestionListDto;
+import com.codingtest.data.codegen.types.QuestionListRequestDto;
 import com.codingtest.data.domain.question.client.LeetCodeClient;
 import com.codingtest.data.domain.question.client.ProgrammersClient;
 import com.codingtest.data.domain.question.client.SolvedacClient;
@@ -16,6 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 @Service
 @RequiredArgsConstructor
@@ -58,7 +63,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public String CreateProgrammersQuestions(Integer perPage, List<Integer> levels, List<String> languages,
+    public String createProgrammersQuestions(Integer perPage, List<Integer> levels, List<String> languages,
                                              ProgrammersOrderEnum order, String search, Integer page) {
         if (perPage == null) {
             perPage = 20;
@@ -113,6 +118,25 @@ public class QuestionServiceImpl implements QuestionService {
 
 
         return dataResponse.getProblemsetQuestionList().size() + " 건의 데이터가 삽입되었습니다.";
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public QuestionListDto getQuestionList(QuestionListRequestDto requestDto) {
+        if (requestDto == null) {
+            requestDto = new QuestionListRequestDto.Builder().page(1).perPage(20).build();
+        }
+        else {
+            if (requestDto.getPage() == null) {
+                requestDto.setPage(1);
+            }
+
+            if (requestDto.getPerPage() == null) {
+                requestDto.setPerPage(20);
+            }
+        }
+
+        return questionRepository.getQuestionList(requestDto);
     }
 
     private String extractSolvedTagName(List<Solvedac.Tag> tags) {

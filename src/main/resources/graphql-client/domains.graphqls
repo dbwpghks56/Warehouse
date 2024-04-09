@@ -19,3 +19,18 @@ type QuestionDto {
     successRate: Float
     totalSuccess: Long
 }
+
+input QuestionListRequestDto {
+    page: Int,
+    perPage: Int,
+    tag: String,
+    source: String,
+    title: String
+}
+
+type QuestionListDto {
+    total: Int
+    perPage: Int,
+    currentPage: Int,
+    questions: [QuestionDto]
+}
