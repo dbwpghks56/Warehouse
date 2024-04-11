@@ -1,11 +1,10 @@
 package com.codingtest.data.domain.question.service.core;
 
-import com.codingtest.data.codegen.types.ProgrammersOrderEnum;
-import com.codingtest.data.codegen.types.QuestionListDto;
-import com.codingtest.data.codegen.types.QuestionListRequestDto;
+import com.codingtest.data.codegen.types.*;
 import com.codingtest.data.domain.question.client.LeetCodeClient;
 import com.codingtest.data.domain.question.client.ProgrammersClient;
 import com.codingtest.data.domain.question.client.SolvedacClient;
+import com.codingtest.data.domain.question.entity.Question;
 import com.codingtest.data.domain.question.repository.QuestionRepository;
 import com.codingtest.data.domain.question.service.QuestionService;
 import com.codingtest.data.global.dto.LeetCode;
@@ -137,6 +136,21 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         return questionRepository.getQuestionList(requestDto);
+    }
+
+    @Override
+    public QuestionDto questionUpdate(Long id, QuestionUpdateRequestDto updateDto) {
+        Question question = questionRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 데이터가 없습니다."));
+
+        if (updateDto != null) {
+            question.update(updateDto);
+        }
+        else {
+            throw new IllegalArgumentException("수정할 데이터가 없습니다.");
+        }
+
+        return question.toResponseDto();
     }
 
     private String extractSolvedTagName(List<Solvedac.Tag> tags) {

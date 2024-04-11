@@ -20,6 +20,21 @@ type QuestionDto {
     totalSuccess: Long
 }
 
+input QuestionUpdateRequestDto {
+    title: String
+    content: String
+    tag: String
+    source: String
+    timeLimit: Float
+    memoryLimit: Float
+    level: Int
+    averageTries: Float
+    totalTries: Long
+    totalPerson: Long
+    successRate: Float
+    totalSuccess: Long
+}
+
 input QuestionListRequestDto {
     page: Int,
     perPage: Int,

@@ -1,6 +1,7 @@
 package com.codingtest.data.domain.question.entity;
 
 import com.codingtest.data.codegen.types.QuestionDto;
+import com.codingtest.data.codegen.types.QuestionUpdateRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -58,5 +59,44 @@ public class Question {
                 .successRate(successRate)
                 .totalSuccess(totalSuccess)
                 .build();
+    }
+
+    public void update(QuestionUpdateRequestDto updateDto) {
+        if (updateDto.getTitle() != null) {
+            this.title = updateDto.getTitle();
+        }
+        if (updateDto.getContent() != null) {
+            this.content = updateDto.getContent();
+        }
+        if (updateDto.getTag() != null) {
+            this.tag = updateDto.getTag();
+        }
+        if (updateDto.getSource() != null) {
+            this.source = updateDto.getSource();
+        }
+        if (updateDto.getTimeLimit() != null) {
+            this.timeLimit = updateDto.getTimeLimit();
+        }
+        if (updateDto.getMemoryLimit() != null) {
+            this.memoryLimit = updateDto.getMemoryLimit();
+        }
+        if (updateDto.getLevel() != null) {
+            this.level = updateDto.getLevel();
+        }
+        if (updateDto.getAverageTries() != null) {
+            this.averageTries = updateDto.getAverageTries();
+        }
+        if (updateDto.getTotalTries() != null) {
+            this.totalTries = updateDto.getTotalTries();
+        }
+        if (updateDto.getTotalPerson() != null) {
+            this.totalPerson = updateDto.getTotalPerson();
+        }
+        if (updateDto.getSuccessRate() != null) {
+            this.successRate = updateDto.getSuccessRate();
+        }
+        if (updateDto.getTotalSuccess() != null) {
+            this.totalSuccess = updateDto.getTotalSuccess();
+        }
     }
 }

@@ -3,4 +3,5 @@ type Mutation {
     createProgrammersQuestions(perPage: Int, levels: [Int], languages: [String], order: ProgrammersOrderEnum, search: String,
         page: Int): String
     createLeetCodeQuestions(limit: Int, tags: [String]): String
+    updateQuestion(id: Long!, request: QuestionUpdateRequestDto): QuestionDto
 }
