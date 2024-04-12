@@ -74,16 +74,17 @@ public class QuestionServiceImpl implements QuestionService {
 
         Programmers.QuestionResponse dataResponse = programmersClient.getProgrammersQuestions(perPage, levels, languages, order, search, page);
 
-        jdbcTemplate.batchUpdate("INSERT INTO tb_question (title, content, level, source, success_rate, total_success) VALUES (?, ?, ?, ?, ?, ?)",
+        jdbcTemplate.batchUpdate("INSERT INTO tb_question (title, content, tag, level, source, success_rate, total_success) VALUES (?, ?, ?, ?, ?, ?, ?)",
                 dataResponse.getResult(),
                 dataResponse.getResult().size(),
                 (ps, question) -> {
                     ps.setString(1, question.getTitle());
                     ps.setString(2, question.getPartTitle());
-                    ps.setInt(3, question.getLevel());
-                    ps.setString(4, "programmers");
-                    ps.setInt(5, question.getAcceptanceRate());
-                    ps.setDouble(6, question.getFinishedCount());
+                    ps.setString(3, "");
+                    ps.setInt(4, question.getLevel());
+                    ps.setString(5, "programmers");
+                    ps.setInt(6, question.getAcceptanceRate());
+                    ps.setDouble(7, question.getFinishedCount());
                 });
 
         return dataResponse.getResult().size() + " 건의 데이터가 삽입되었습니다.";

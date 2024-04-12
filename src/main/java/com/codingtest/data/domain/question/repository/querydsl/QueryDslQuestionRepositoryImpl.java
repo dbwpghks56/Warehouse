@@ -7,6 +7,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -22,21 +23,24 @@ public class QueryDslQuestionRepositoryImpl implements QueryDslQuestionRepositor
     @Override
     public QuestionListDto getQuestionList(QuestionListRequestDto requestDto) {
         long offset = (long) (max(DEFAULT_PAGE, requestDto.getPage()) - DEFAULT_PAGE) * min(requestDto.getPerPage(), MAX_SIZE);
-        List<Question> results;
-        int total;
+        String tag = Optional.ofNullable(requestDto.getTag()).orElse("");
+        String source = Optional.ofNullable(requestDto.getSource()).orElse("");
+        String title = Optional.ofNullable(requestDto.getTitle()).orElse("");
+        int total = 0;
 
-        results = jpaQueryFactory.selectFrom(question)
-                .where(question.tag.contains(requestDto.getTag() != null ? requestDto.getTag() : "")
-                        .and(question.source.contains(requestDto.getSource() != null ? requestDto.getSource() : "")
-                        .and(question.title.contains(requestDto.getTitle() != null ? requestDto.getTitle() : ""))))
+        // JPA Query를 이용하여 검색 쿼리 실행
+        List<Question> results = jpaQueryFactory.selectFrom(question)
+                .where(question.tag.contains(tag)
+                        .and(question.source.contains(source)
+                                .and(question.title.contains(title))))
                 .offset(offset)
-                .limit(min(requestDto.getPerPage(), MAX_SIZE))
+                .limit(Math.min(requestDto.getPerPage(), MAX_SIZE))
                 .fetch();
 
         total = jpaQueryFactory.selectFrom(question)
-                .where(question.tag.contains(requestDto.getTag() != null ? requestDto.getTag() : "")
-                        .and(question.source.contains(requestDto.getSource() != null ? requestDto.getSource() : "")
-                        .and(question.title.contains(requestDto.getTitle() != null ? requestDto.getTitle() : ""))))
+                .where(question.tag.contains(tag)
+                        .and(question.source.contains(source)
+                                .and(question.title.contains(title))))
                 .fetch().size();
 
         return new QuestionListDto.Builder()
