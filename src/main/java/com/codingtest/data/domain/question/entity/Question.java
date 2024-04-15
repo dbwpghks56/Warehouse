@@ -18,6 +18,8 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long problemId;
+
     @Column(nullable = false)
     private String title;
 
@@ -27,9 +29,9 @@ public class Question {
 
     private String source;
 
-    private Double timeLimit;
+    private String timeLimit;
 
-    private Double memoryLimit;
+    private String memoryLimit;
 
     private Integer level;
 
@@ -46,6 +48,7 @@ public class Question {
     public QuestionDto toResponseDto() {
         return new QuestionDto.Builder()
                 .id(id)
+                .problemId(problemId)
                 .title(title)
                 .content(content)
                 .tag(tag)

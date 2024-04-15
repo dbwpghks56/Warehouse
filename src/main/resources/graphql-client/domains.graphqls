@@ -6,12 +6,13 @@ type Show {
 
 type QuestionDto {
     id: Long
+    problemId: Long
     title: String
     content: String
     tag: String
     source: String
-    timeLimit: Float
-    memoryLimit: Float
+    timeLimit: String
+    memoryLimit: String
     level: Int
     averageTries: Float
     totalTries: Long
@@ -21,12 +22,13 @@ type QuestionDto {
 }
 
 input QuestionUpdateRequestDto {
+    problemId: Long
     title: String
     content: String
     tag: String
     source: String
-    timeLimit: Float
-    memoryLimit: Float
+    timeLimit: String
+    memoryLimit: String
     level: Int
     averageTries: Float
     totalTries: Long
