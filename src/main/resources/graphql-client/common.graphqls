@@ -1,5 +1,7 @@
 scalar Long
 
+scalar Upload
+
 enum ProgrammersOrderEnum {
     acceptance_asc,
     acceptance_desc,

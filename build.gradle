@@ -39,7 +39,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.flywaydb:flyway-core'
+	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:15.0.0'
 	compileOnly 'org.projectlombok:lombok'
+	// https://mvnrepository.com/artifact/org.apache.poi/poi
+	implementation 'org.apache.poi:poi:5.2.5'
+
 	//query-dsl
 	implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
 	implementation "com.querydsl:querydsl-core"
@@ -56,6 +60,7 @@ dependencies {
 	testImplementation 'org.springframework:spring-webflux'
 	testImplementation 'org.springframework.batch:spring-batch-test'
 	testImplementation 'org.springframework.graphql:spring-graphql-test'
+	testImplementation 'com.graphql-java-kickstart:graphql-spring-boot-starter-test:15.0.0'
 }
 
 tasks.named('test') {
@@ -69,7 +74,7 @@ generateJava {
 	typeMapping = [
 			"Url" : "java.net.URL",
 			"PositiveInt" : "java.lang.Integer",
-			"Long" : "java.lang.Long",
+			"Long" : "java.lang.Long"
 	]
 }
 

@@ -1,13 +1,18 @@
 package com.codingtest.data.domain.question.datafetcher;
 
+import com.codingtest.data.codegen.DgsConstants;
 import com.codingtest.data.codegen.types.ProgrammersOrderEnum;
 import com.codingtest.data.codegen.types.QuestionDto;
 import com.codingtest.data.codegen.types.QuestionUpdateRequestDto;
 import com.codingtest.data.domain.question.service.QuestionService;
 import com.netflix.graphql.dgs.DgsComponent;
+import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.InputArgument;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.core.ApplicationPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -39,5 +44,12 @@ public class QuestionMutationDataFetcher {
     @DgsMutation
     public QuestionDto updateQuestion(@InputArgument Long id, @InputArgument QuestionUpdateRequestDto request) {
         return questionService.questionUpdate(id, request);
+    }
+
+    @DgsMutation
+    public String uploadExcelAndSaveQuestions(DataFetchingEnvironment dfe) {
+        ApplicationPart file = dfe.getArgument("excelInput");
+
+        return questionService.uploadExcelSaveQuestions(file);
     }
 }

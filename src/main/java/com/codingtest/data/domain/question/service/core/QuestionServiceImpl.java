@@ -12,9 +12,11 @@ import com.codingtest.data.global.dto.Programmers;
 import com.codingtest.data.global.dto.Solvedac;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.core.ApplicationPart;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -152,6 +154,11 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         return question.toResponseDto();
+    }
+
+    @Override
+    public String uploadExcelSaveQuestions(ApplicationPart excelInput) {
+        return "성공?";
     }
 
     private String extractSolvedTagName(List<Solvedac.Tag> tags) {

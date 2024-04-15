@@ -4,4 +4,6 @@ type Mutation {
         page: Int): String
     createLeetCodeQuestions(limit: Int, tags: [String]): String
     updateQuestion(id: Long!, request: QuestionUpdateRequestDto): QuestionDto
+    uploadExcelAndSaveQuestions(excelInput: Upload!): String
+
 }
