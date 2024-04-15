@@ -47,7 +47,7 @@ public class QuestionMutationDataFetcher {
     }
 
     @DgsMutation
-    public String uploadExcelAndSaveQuestions(DataFetchingEnvironment dfe) {
+    public String uploadExcelAndSaveQuestions(DataFetchingEnvironment dfe) throws Exception {
         ApplicationPart file = dfe.getArgument("excelInput");
 
         return questionService.uploadExcelSaveQuestions(file);

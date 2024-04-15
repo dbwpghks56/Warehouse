@@ -13,11 +13,15 @@ import com.codingtest.data.global.dto.Solvedac;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.core.ApplicationPart;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import static java.lang.Math.max;
@@ -157,7 +161,34 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public String uploadExcelSaveQuestions(ApplicationPart excelInput) {
+    public String uploadExcelSaveQuestions(ApplicationPart excelInput) throws IOException {
+        InputStream inputStream = excelInput.getInputStream();
+
+        Workbook workbook = WorkbookFactory.create(inputStream);
+
+        Sheet sheet = workbook.getSheetAt(0);
+
+        for (Row row : sheet) {
+            // 각 셀을 반복하여 데이터 읽기
+            for (Cell cell : row) {
+                // 셀 유형에 따라 처리
+                switch (cell.getCellType()) {
+                    case STRING:
+                        System.out.print(cell.getStringCellValue() + "\t");
+                        break;
+                    case NUMERIC:
+                        System.out.print(cell.getNumericCellValue() + "\t");
+                        break;
+                    case BOOLEAN:
+                        System.out.print(cell.getBooleanCellValue() + "\t");
+                        break;
+                    default:
+                        System.out.print("\t");
+                }
+            }
+            System.out.println(); // 다음 행으로 이동
+        }
+
         return "성공?";
     }
 

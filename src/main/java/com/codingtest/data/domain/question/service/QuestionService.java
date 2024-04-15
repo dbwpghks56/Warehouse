@@ -4,6 +4,7 @@ import com.codingtest.data.codegen.types.*;
 import org.apache.catalina.core.ApplicationPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface QuestionService {
@@ -12,5 +13,5 @@ public interface QuestionService {
     String createLeetCodeQuestions(Integer limit, List<String> tags);
     QuestionListDto getQuestionList(QuestionListRequestDto requestDto);
     QuestionDto questionUpdate(Long id, QuestionUpdateRequestDto updateDto);
-    String uploadExcelSaveQuestions(ApplicationPart excelInput);
+    String uploadExcelSaveQuestions(ApplicationPart excelInput) throws IOException;
 }
