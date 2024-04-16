@@ -41,7 +41,7 @@ public class Question {
 
     private Long totalPerson;
 
-    private Double successRate;
+    private String successRate;
 
     private Long totalSuccess;
 

@@ -1,2 +1,2 @@
 ALTER TABLE tb_question
-ADD COLUMN source VARCHAR(255);
+ADD COLUMN source TEXT;

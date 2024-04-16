@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.max;
@@ -167,29 +168,61 @@ public class QuestionServiceImpl implements QuestionService {
         Workbook workbook = WorkbookFactory.create(inputStream);
 
         Sheet sheet = workbook.getSheetAt(0);
+        List<Question> questions = new ArrayList<>();
 
+        int rowIndex = 0;
         for (Row row : sheet) {
-            // 각 셀을 반복하여 데이터 읽기
-            for (Cell cell : row) {
-                // 셀 유형에 따라 처리
-                switch (cell.getCellType()) {
-                    case STRING:
-                        System.out.print(cell.getStringCellValue() + "\t");
-                        break;
-                    case NUMERIC:
-                        System.out.print(cell.getNumericCellValue() + "\t");
-                        break;
-                    case BOOLEAN:
-                        System.out.print(cell.getBooleanCellValue() + "\t");
-                        break;
-                    default:
-                        System.out.print("\t");
-                }
+            if (rowIndex == 0) {
+                // 첫 번째 행인 경우 건너뜀
+                rowIndex++;
+                continue;
             }
-            System.out.println(); // 다음 행으로 이동
+
+            // 각 셀을 반복하여 데이터 읽기
+            Question question = Question.builder()
+                    .problemId(Long.parseLong(row.getCell(0).getStringCellValue()))
+                    .title(row.getCell(1).getStringCellValue())
+                    .content(row.getCell(2).getStringCellValue())
+                    .timeLimit(row.getCell(3).getStringCellValue())
+                    .memoryLimit(row.getCell(4).getStringCellValue())
+                    .totalTries(Long.parseLong(row.getCell(5).getStringCellValue()))
+                    .totalSuccess(Long.parseLong(row.getCell(6).getStringCellValue()))
+                    .totalPerson(Long.parseLong(row.getCell(7).getStringCellValue()))
+                    .successRate(row.getCell(8).getStringCellValue())
+                    .level(Integer.parseInt(row.getCell(9).getStringCellValue()))
+                    .tag(row.getCell(10).getStringCellValue() != null ?
+                            row.getCell(10).getStringCellValue() : "")
+                    .source(row.getCell(11) != null ?
+                            row.getCell(11).getStringCellValue().split("\n")[1] : "")
+                    .build();
+
+            questions.add(question);
         }
 
-        return "성공?";
+        jdbcTemplate.batchUpdate("INSERT INTO tb_question " +
+                        "(problem_id, title, content, time_limit, memory_limit, total_tries, total_success, total_person, success_rate, level, tag, source)" +
+                        " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                questions,
+                questions.size(),
+                (ps, question) -> {
+                    ps.setLong(1, question.getProblemId());
+                    ps.setString(2, question.getTitle());
+                    ps.setString(3, question.getContent());
+                    ps.setString(4, question.getTimeLimit());
+                    ps.setString(5, question.getMemoryLimit());
+                    ps.setLong(6, question.getTotalTries());
+                    ps.setLong(7, question.getTotalSuccess());
+                    ps.setLong(8, question.getTotalPerson());
+                    ps.setString(9, question.getSuccessRate());
+                    ps.setInt(10, question.getLevel());
+                    ps.setString(11, question.getTag());
+                    ps.setString(12, question.getSource());
+                });
+
+        workbook.close();
+        inputStream.close();
+
+        return questions.size() + "개의 데이터가 성공적으로 추가되었습니다.";
     }
 
     private String extractSolvedTagName(List<Solvedac.Tag> tags) {

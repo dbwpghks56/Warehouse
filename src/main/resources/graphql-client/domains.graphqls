@@ -17,7 +17,7 @@ type QuestionDto {
     averageTries: Float
     totalTries: Long
     totalPerson: Long
-    successRate: Float
+    successRate: String
     totalSuccess: Long
 }
 
@@ -33,7 +33,7 @@ input QuestionUpdateRequestDto {
     averageTries: Float
     totalTries: Long
     totalPerson: Long
-    successRate: Float
+    successRate: String
     totalSuccess: Long
 }
 

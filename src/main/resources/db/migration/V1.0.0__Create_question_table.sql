@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS tb_question (
     average_tries DOUBLE PRECISION,
     total_tries BIGINT,
     total_person BIGINT,
-    success_rate DOUBLE PRECISION,
+    success_rate VARCHAR(255),
     total_success BIGINT
 );
