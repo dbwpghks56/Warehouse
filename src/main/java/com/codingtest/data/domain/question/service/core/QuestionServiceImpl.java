@@ -180,20 +180,18 @@ public class QuestionServiceImpl implements QuestionService {
 
             // 각 셀을 반복하여 데이터 읽기
             Question question = Question.builder()
-                    .problemId(Long.parseLong(row.getCell(0).getStringCellValue()))
-                    .title(row.getCell(1).getStringCellValue())
-                    .content(row.getCell(2).getStringCellValue())
-                    .timeLimit(row.getCell(3).getStringCellValue())
-                    .memoryLimit(row.getCell(4).getStringCellValue())
-                    .totalTries(Long.parseLong(row.getCell(5).getStringCellValue()))
-                    .totalSuccess(Long.parseLong(row.getCell(6).getStringCellValue()))
-                    .totalPerson(Long.parseLong(row.getCell(7).getStringCellValue()))
-                    .successRate(row.getCell(8).getStringCellValue())
-                    .level(Integer.parseInt(row.getCell(9).getStringCellValue()))
-                    .tag(row.getCell(10).getStringCellValue() != null ?
-                            row.getCell(10).getStringCellValue() : "")
-                    .source(row.getCell(11) != null ?
-                            row.getCell(11).getStringCellValue().split("\n")[1] : "")
+                    .problemId(Long.parseLong(extractCell(row.getCell(0))))
+                    .title(extractCell(row.getCell(1)))
+                    .content(extractCell(row.getCell(2)))
+                    .timeLimit(extractCell(row.getCell(3)))
+                    .memoryLimit(extractCell(row.getCell(4)))
+                    .totalTries(Long.parseLong(extractCell(row.getCell(5))))
+                    .totalSuccess(Long.parseLong(extractCell(row.getCell(6))))
+                    .totalPerson(Long.parseLong(extractCell(row.getCell(7))))
+                    .successRate(extractCell(row.getCell(8)))
+                    .level(Integer.parseInt(extractCell(row.getCell(9))))
+                    .tag(extractCell(row.getCell(10)))
+                    .source(extractCell(row.getCell(11)))
                     .build();
 
             questions.add(question);
@@ -256,5 +254,9 @@ public class QuestionServiceImpl implements QuestionService {
             case "Hard" -> 3;
             default -> 0;
         };
+    }
+
+    private String extractCell(Cell cell) {
+        return cell != null ? cell.getStringCellValue() : "";
     }
 }
