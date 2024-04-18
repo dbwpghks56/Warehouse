@@ -223,6 +223,12 @@ public class QuestionServiceImpl implements QuestionService {
         return questions.size() + "개의 데이터가 성공적으로 추가되었습니다.";
     }
 
+    @Override
+    public QuestionDto detailQuestion(Long id) {
+        return questionRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 데이터가 없습니다.")).toResponseDto();
+    }
+
     private String extractSolvedTagName(List<Solvedac.Tag> tags) {
         StringBuilder tagName = new StringBuilder();
 

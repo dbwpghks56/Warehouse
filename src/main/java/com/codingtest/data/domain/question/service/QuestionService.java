@@ -14,4 +14,5 @@ public interface QuestionService {
     QuestionListDto getQuestionList(QuestionListRequestDto requestDto);
     QuestionDto questionUpdate(Long id, QuestionUpdateRequestDto updateDto);
     String uploadExcelSaveQuestions(ApplicationPart excelInput) throws IOException;
+    QuestionDto detailQuestion(Long id);
 }

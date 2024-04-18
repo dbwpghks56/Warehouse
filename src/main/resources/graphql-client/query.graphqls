@@ -1,4 +1,5 @@
 type Query {
     shows(titleFilter: String): [Show]
     questionList(request: QuestionListRequestDto): QuestionListDto
+    detailQuestion(id: Long!): QuestionDto
 }
