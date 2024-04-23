@@ -35,6 +35,7 @@ public class QueryDslQuestionRepositoryImpl implements QueryDslQuestionRepositor
                                 .and(question.title.contains(title))))
                 .offset(offset)
                 .limit(Math.min(requestDto.getPerPage(), MAX_SIZE))
+                .orderBy(question.id.asc())
                 .fetch();
 
         total = jpaQueryFactory.selectFrom(question)
